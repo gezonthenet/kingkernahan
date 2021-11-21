@@ -2,6 +2,7 @@
 
 A simple webpage that uses the Strava API V3 to view your own KOMs/CRs on a single page with an option to download them as a csv file. The webpage will also save a snapshot of the KOMs/CRs to your local browser storage and use it to detect new, improved or lost KOMs/CRs between snapshots. Only the difference of the last 20 snapshots will be shown.
 
+![Example](examples/StravaAuditorExample.png)
 ## Background
 
 Currently the Strava website presents users with a paginated view of their KOMs/CRs. If you have a lot of CRs and want to easily keep track or search for particular CRs it is time consuming paginating through their website.
