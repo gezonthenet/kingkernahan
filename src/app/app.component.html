@@ -1,0 +1,23 @@
+<div class="heading">
+  <h1 *ngIf="name">{{name}}'s CRs</h1>
+  <div *ngIf="fetchingKoms" class="fetchingKoms">
+    <div class="loadingio-spinner-pulse-tywoscelc5"><div class="ldio-4q77ihb5mxf">
+      <div></div><div></div><div></div>
+      </div></div>
+  </div>
+  <angular2csv [data]="data" [filename]="name+'_koms'" [options]="options"></angular2csv>
+</div>
+<table id="koms">
+  <tr>
+    <th *ngFor="let h of options.headers">{{h}}</th>
+  </tr>
+  <tr *ngFor="let d of data; let i = index;">
+    <ng-container *ngFor="let h of options.headers">
+      <td *ngIf="h != 'LINK'">{{d[h]}}</td>
+      <td *ngIf="h == 'LINK'"><a [href]="'//'+d[h]" target="_blank">LINK</a></td>
+    </ng-container>
+  </tr>
+</table>
+<p class="cp-text">
+  © Copyright 2021 Gerard Lynch. All rights reserved.
+</p>
