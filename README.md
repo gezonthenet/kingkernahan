@@ -9,7 +9,7 @@ Currently the Strava website presents users with a paginated view of their KOMs/
 
 ## Permissions
 
-This tool requires read permissions to your activities. Your personal information or activities is not stored anywhere by me. 
+This tool requires read permissions to your activities. Snapshots of your KOMs/CRs will be saved to your local browser storage.
 
 ## Website
 
