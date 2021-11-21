@@ -1,6 +1,6 @@
 # Strava CR Auditor
 
-A simple webpage that uses the Strava API V3 to view your own KOMs/CRs on a single page with an option to download them as a csv file.
+A simple webpage that uses the Strava API V3 to view your own KOMs/CRs on a single page with an option to download them as a csv file. The webpage will also save a snapshot of the KOMs/CRs to your local browser storage and use it to detect new, improved or lost KOMs/CRs between snapshots. Only the difference of the last 20 snapshots will be shown.
 
 ## Background
 

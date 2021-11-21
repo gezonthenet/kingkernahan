@@ -5,8 +5,38 @@
       <div></div><div></div><div></div>
       </div></div>
   </div>
+  <div *ngIf="!fetchingKoms" class="fetchingKoms">
+    {{changeDetectionText}}
+  </div>
   <angular2csv [data]="data" [filename]="name+'_koms'" [options]="options"></angular2csv>
 </div>
+<div class="diff-summary" *ngIf="diffSummary.length > 0">
+  <h3>Summary of recent changes:</h3>
+  <table id="changes">
+    <ng-container *ngFor="let diff of diffSummary">
+      <tr>
+        <th colspan="5">
+          <span class="diff-summary-date">{{extractDateFromSnapshotName(diff.currentSnapshot)}}</span> compared with <span class="diff-summary-date">{{extractDateFromSnapshotName(diff.previousSnapshot)}}</span>
+        </th>
+      </tr>
+      <ng-container class="diff-summary-detail" *ngFor="let changeType of objectKeys(diff.diffs)">
+        <ng-container *ngIf="objectKeys(diff.diffs[changeType]).length > 0">
+          <tr *ngFor="let segment of objectKeys(diff.diffs[changeType])">
+            <td><span [class]="'diff-summary-change-'+changeType">{{changeTypeText[changeType]}}</span>
+            <span *ngIf="changeType == 'updated'"> +({{timeMinutesAndSeconds(diff.diffs[changeType][segment].previousTime - diff.diffs[changeType][segment].elapsed_time)}})</span></td>
+            <td><span class="diff-summary-change-name">{{diff.diffs[changeType][segment].name}}</span></td>
+            <td><span>{{metersToKm(diff.diffs[changeType][segment].distance)}}</span></td>
+            <td><span>my pace: {{this.paceMinutesAndSecondsPerKm(diff.diffs[changeType][segment].elapsed_time, diff.diffs[changeType][segment].distance)}}</span></td>
+            <td><a [href]="'//www.strava.com/segments/'+segment" target="_blank">(link)</a></td>
+          </tr>
+        </ng-container>
+      </ng-container>
+      <tr><td colspan="5"></td></tr>
+    </ng-container>
+  </table>
+</div>
+
+<h3>Latest Snapshot:</h3>
 <table id="koms">
   <tr>
     <th *ngFor="let h of options.headers">{{h}}</th>
