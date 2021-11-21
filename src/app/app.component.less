@@ -4,6 +4,35 @@
     align-items: center;
 }
 
+
+
+.diff-summary {
+    margin-bottom: 20px;
+}
+
+.diff-summary-change-name {
+    font-weight: bold;
+}
+
+.diff-summary-change-deleted {
+    color: red;
+    font-style: italic;
+    font-weight: bold;
+
+}
+
+.diff-summary-change-added {
+    color: green;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.diff-summary-change-updated {
+    color: blue;
+    font-style: italic;
+    font-weight: bold;
+}
+
 #koms {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
@@ -20,6 +49,29 @@
 #koms tr:hover {background-color: #ddd;}
 
 #koms th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #fc4c02;
+    color: white;
+}
+
+#changes {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    //width: 100%;
+}
+
+#changes td, #changes th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+//#changes tr:nth-child(even){background-color: #f2f2f2;}
+
+#changes tr:hover {background-color: #ddd;}
+
+#changes th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
