@@ -3,7 +3,7 @@ import { StravaApiService } from './strava-api.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { first, filter } from 'rxjs/operators';
 import { diff, addedDiff, deletedDiff, updatedDiff, detailedDiff } from 'deep-object-diff';
-
+import { CompressionService } from './compression.service';
 
 
 @Component({
@@ -30,7 +30,8 @@ export class AppComponent implements OnInit{
 
   constructor(
     private stravaApiService: StravaApiService,
-    private router: Router
+    private router: Router,
+    private compressionService: CompressionService
   ) { }
 
   ngOnInit() {
@@ -153,7 +154,11 @@ export class AppComponent implements OnInit{
 
   attemptToGetSnapshot(snapshotName: string) {
     try {
-      return JSON.parse(localStorage.getItem(snapshotName) || '');
+      let snapshotData = JSON.parse(localStorage.getItem(snapshotName) || '');
+      if (snapshotData.compressed) {
+        snapshotData = this.compressionService.decompressObject(snapshotData.payload);
+      }
+      return snapshotData;
     } catch (e) {
       console.log('error parsing snapshot', snapshotName, e);
     }
@@ -224,7 +229,19 @@ export class AppComponent implements OnInit{
     let currentTime = new Date().getTime();
     let storageName = currentTime.toString()+'_koms_'+this.athleteId;
     console.log('saving to local storage', storageName);
-    localStorage.setItem(storageName, JSON.stringify(this.koms));
+    let stringToSave = JSON.stringify({
+      compressed: true,
+      payload: this.compressionService.compressObject(this.koms)
+    });
+    try {
+      localStorage.setItem(storageName, stringToSave);
+    } catch (e) {
+      console.log('error saving to local storage', e);
+      //delete oldest item
+      let oldestSnapshot = this.getAvailableSnapshots()[0];
+      localStorage.removeItem(oldestSnapshot);
+      this.saveToLocalStorage();
+    }
   }
 
   getSegmentIds(koms: any) {

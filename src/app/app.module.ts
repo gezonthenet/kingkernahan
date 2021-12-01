@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Angular2CsvModule } from 'angular2-csv';
+import { CompressionService } from './compression.service';
 
 
 @NgModule({
@@ -14,9 +15,9 @@ import { Angular2CsvModule } from 'angular2-csv';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    Angular2CsvModule
+    Angular2CsvModule,
   ],
-  providers: [],
+  providers: [CompressionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
